@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Login - RestoApp</title>
 
     <!-- Memanggil CSS & JS Bootstrap via Vite -->
@@ -55,57 +56,62 @@
 
 </body>
 <script>
-        document.getElementById('loginForm').addEventListener('submit', async function(e) {
-            e.preventDefault(); // Mencegah form reload halaman
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
 
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const errorAlert = document.getElementById('errorAlert');
-            const submitBtn = document.getElementById('submitBtn');
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const errorAlert = document.getElementById('errorAlert');
+        const submitBtn = document.getElementById('submitBtn');
 
-            // Sembunyikan alert error sebelumnya & ubah teks tombol jadi loading
-            errorAlert.classList.add('d-none');
-            submitBtn.disabled = true;
-            submitBtn.innerText = 'Signing in...';
+        // Sembunyikan alert error dan aktifkan loading
+        errorAlert.classList.add('d-none');
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Signing in...';
 
-            try {
-                // Mengirim request ke endpoint API login yang sudah dibuat
-                const response = await fetch('/api/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({ username, password })
-                });
+        try {
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector(
+                        'meta[name="csrf-token"]'
+                    ).content,
+                },
+                body: JSON.stringify({
+                    username,
+                    password
+                }),
+                credentials: 'same-origin',
+            });
 
-                const data = await response.json();
+            const data = await response.json();
 
-                if (response.ok) {
-                    // Jika login berhasil, simpan token ke localStorage
-                    localStorage.setItem('auth_token', data.access_token);
+            if (response.ok && data.success) {
+                // menyimpan session
 
-                    // Alihkan ke halaman dashboard/home setelah 1 detik
-                    setTimeout(() => {
-                        window.location.href = '/dashboard'; // Sesuaikan halaman tujuan Anda
-                    }, 1000);
-                } else {
-                    // Jika gagal (Unauthorized / Password salah)
-                    errorAlert.innerText = data.message || 'Username atau password salah.';
-                    errorAlert.classList.remove('d-none');
-                    
-                    // Kembalikan tombol seperti semula
-                    submitBtn.disabled = false;
-                    submitBtn.innerText = 'Sign In';
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                errorAlert.innerText = 'Terjadi kesalahan pada server.';
+
+                window.location.href = data.redirect || '/dashboard';
+
+            } else {
+                errorAlert.innerText =
+                    data.message || 'Username atau password salah.';
                 errorAlert.classList.remove('d-none');
-                
+
                 submitBtn.disabled = false;
                 submitBtn.innerText = 'Sign In';
             }
-        });
-    </script>
+
+        } catch (error) {
+            console.error('Error:', error);
+
+            errorAlert.innerText = 'Terjadi kesalahan pada server.';
+            errorAlert.classList.remove('d-none');
+
+            submitBtn.disabled = false;
+            submitBtn.innerText = 'Sign In';
+        }
+    });
+</script>
 </html>

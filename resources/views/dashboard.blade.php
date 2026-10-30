@@ -1,57 +1,68 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>Dashboard RestoApp</title>
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-light p-5">
+
     <div class="container">
         <h1>Dashboard RestoApp</h1>
-        <p id="welcomeUser" class="lead">Memuat data user...</p>
-        <button id="logoutBtn" class="btn btn-danger">Logout</button>
+
+        <p class="lead">
+            Selamat datang, {{ Auth::user()->username }}!
+        </p>
+
+        <form id="logoutForm">
+            @csrf
+            <button type="submit" class="btn btn-danger" id="logoutBtn">
+                Logout
+            </button>
+        </form>
     </div>
 
     <script>
-        // 1. Cek apakah token ada di localStorage saat halaman dibuka
-        const token = localStorage.getItem('auth_token');
-        if (!token) {
-            // Jika tidak ada token, tendang kembali ke halaman login
-            window.location.href = '/login';
-        }
+        document.getElementById('logoutForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
 
-        // 2. Ambil data user yang sedang login menggunakan token Passport (via rute /api/user)
-        async function fetchUserData() {
+            const button = document.getElementById('logoutBtn');
+            button.disabled = true;
+            button.innerText = 'Logging out...';
+
             try {
-                const response = await fetch('/api/user', {
-                    method: 'GET',
+                const response = await fetch('/logout', {
+                    method: 'POST',
                     headers: {
-                        'Authorization': 'Bearer ' + token, // Kirim token Passport di header
-                        'Accept': 'application/json'
-                    }
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    },
+                    credentials: 'same-origin'
                 });
 
-                if (response.ok) {
-                    const user = await response.json();
-                    document.getElementById('welcomeUser').innerText = `Selamat datang, ${user.username}!`;
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    window.location.href = data.redirect;
                 } else {
-                    // Jika token invalid/expired, hapus token dan redirect ke login
-                    localStorage.removeItem('auth_token');
-                    window.location.href = '/login';
+                    alert(data.message || 'Logout gagal.');
+                    button.disabled = false;
+                    button.innerText = 'Logout';
                 }
             } catch (error) {
-                console.error('Gagal memuat data user:', error);
+                console.error('Logout error:', error);
+                alert('Terjadi kesalahan saat logout.');
+
+                button.disabled = false;
+                button.innerText = 'Logout';
             }
-        }
-
-        fetchUserData();
-
-        // 3. Tombol Logout sederhana
-        document.getElementById('logoutBtn').addEventListener('click', function() {
-            localStorage.removeItem('auth_token');
-            window.location.href = '/login';
         });
     </script>
+
 </body>
 </html>

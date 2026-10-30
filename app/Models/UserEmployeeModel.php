@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Passport\HasApiTokens;
+// use Laravel\Passport\HasApiTokens;
 use App\Models\UserModel;
 use App\Models\EmployeeModel;
 
 class UserEmployeeModel extends Model
 {
-    use HasApiTokens, Notifiable;
+    use /*HasApiTokens,*/ Notifiable;
     protected $table = 'user_employee';
     protected $primaryKey = 'id';
     protected $keyType = 'int';

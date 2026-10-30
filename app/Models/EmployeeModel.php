@@ -6,14 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Passport\Contracts\OAuthenticatable;
-use Laravel\Passport\HasApiTokens;
+// use Laravel\Passport\Contracts\OAuthenticatable;
+// use Laravel\Passport\HasApiTokens;
 
 
-class EmployeeModel extends Authenticatable implements OAuthenticatable
+// class EmployeeModel extends Authenticatable implements OAuthenticatable
+class EmployeeModel extends Model
 {
     /** @use HasFactory<\Database\Factories\EmployeeModelFactory> */
-    use HasFactory, HasApiTokens, Notifiable;
+    use HasFactory, /*HasApiTokens,*/ Notifiable;
 
     protected $table = 'tbl_employee';
     protected $primaryKey = 'employee_id';
