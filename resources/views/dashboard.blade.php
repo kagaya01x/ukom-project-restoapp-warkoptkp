@@ -57,7 +57,14 @@
             <ul class="dropdown-menu dropdown-menu-dark text-small shadow w-100" aria-labelledby="dropdownUser1">
               <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profile</a></li>
               <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
-              <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+              <li>
+                <form id="logoutForm" action="{{ route('logout') }}" method="POST" class="d-inline">
+                  @csrf
+                  <button type="submit" class="dropdown-item text-danger" id="logoutBtn">
+                    <i class="bi bi-box-arrow-right me-2"></i>Logout
+                  </button>
+                </form>
+              </li>
             </ul>
           </div>
         </div>
@@ -69,12 +76,7 @@
         <p class="lead">
             Selamat datang, {{ Auth::user()->username }}!
         </p>
-        <form id="logoutForm">
-            @csrf
-            <button type="submit" class="btn btn-danger" id="logoutBtn">
-                Logout
-            </button>
-        </form>
+        
   
         </section>
       </main>
@@ -170,39 +172,18 @@
       }
     }
 
-    document.getElementById('logoutForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
 
-        const button = document.getElementById('logoutBtn');
-        button.disabled = true;
-        button.innerText = 'Logging out...';
+    // Logic
 
-        try {
-            const response = await fetch('/logout', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                },
-                credentials: 'same-origin'
-            });
 
-            const data = await response.json();
+    document.getElementById('logoutForm').addEventListener('submit', function(e) {
+      e.preventDefault();
 
-            if (response.ok && data.success) {
-                window.location.href = data.redirect;
-            } else {
-                alert(data.message || 'Logout gagal.');
-                button.disabled = false;
-                button.innerText = 'Logout';
-            }
-        } catch (error) {
-            console.error('Logout error:', error);
-            alert('Terjadi kesalahan saat logout.');
+      const button = document.getElementById('logoutBtn');
+      button.disabled = true;
+      button.innerText = 'Logging out...';
 
-            button.disabled = false;
-            button.innerText = 'Logout';
-        }
+      this.submit();
     });
   </script>
   <script src="../pages/index/script/script.js"></script>
@@ -210,8 +191,4 @@
     src="https://kit.fontawesome.com/f65a8d8213.js"
     crossorigin="anonymous"
   ></script>
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    AOS.init();
-  </script>
 </html>

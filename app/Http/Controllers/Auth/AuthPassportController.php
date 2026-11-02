@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 
@@ -51,15 +52,12 @@ class AuthPassportController extends Controller
         ], 200);
     }
 
-    public function logout(Request $request): JsonResponse{
+    public function logout(Request $request)
+    {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Logout Berhasil',
-            'redirect' => route('login'),
-        ], 200);
+        return redirect()->route('login');
     }
 }
