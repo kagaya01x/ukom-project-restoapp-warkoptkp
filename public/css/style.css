@@ -203,6 +203,13 @@ header{
     background-color: var(--accent-color);
 }
 
+.sidebar #ul-sidebar a.active li,
+.sidebar #ul-sidebar li.active {
+    color: var(--black);
+    background-color: var(--accent-color);
+    font-weight: 600;
+}
+
 body {
   /* background-color: #363636; */
   display: grid;
@@ -230,10 +237,10 @@ main {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+  align-items: stretch;
+  justify-content: flex-start;
   color: var(--black);
+  width: 100%;
 }
 
 .overlay{
@@ -267,7 +274,7 @@ section h1{
 
 /* Pastikan dropdown-menu Bootstrap tidak terpotong oleh sidebar */
 .sidebar .dropdown-menu {
-  z-index: 9999999;
+  z-index: 9999;
 }
 
 footer {

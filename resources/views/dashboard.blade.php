@@ -1,194 +1,42 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+@extends('layouts.app')
 
-    <title>Dashboard RestoApp</title>
+@section('title', 'Dashboard')
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" href="css/style.css" />
-    <link
-      rel="icon"
-      href="../resources/images/favicon/logo.png"
-      type="images/png"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0&icon_names=arrow_outward"
-    />
-    <!-- Bootstrap 5 CSS CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons CDN (untuk ikon) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-  </head>
-  <body>
-    <div class="header-main-wrapper">
-      <nav class="sidebar">
-        <div class="sidebar-content">
-          <div class="sidebar-title"><h2>WarkopTKP</h2></div>
-          <button onclick="sidebar()" class="sidebar-btn">
-            <div class="close-icon">
-              <div class="line"></div>
-            </div>
-          </button>
-        </div>
-        <div class="ul-profile-wrapper">
-          <ul id="ul-sidebar" class="list-unstyled">
-            <a class="text-white text-decoration-none" href="#profile-section"><li>Home</li></a>
-            <a class="text-white text-decoration-none" href="#about-section"><li>About</li></a>
-            <a class="text-white text-decoration-none" href="#project-section"><li>Projects</li></a>
-            <a class="text-white text-decoration-none" href="#contact-section"><li>Contact</li></a>
-            <a class="text-white text-decoration-none" href="blog.html"><li>Blog</li></a>
-          </ul>
-          
-          <!-- BAGIAN PROFIL & DROPDOWN (Menggunakan Dropup Bootstrap) -->
-          <div class="dropdown dropup">
-            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle p-2 rounded bg-black bg-opacity-25" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="https://via.placeholder.com/100" alt="avatar" width="36" height="36" class="rounded-circle me-2 object-fit-cover">
-              <div class="overflow-hidden">
-                <strong class="d-block text-truncate" style="max-width: 150px;">Alex Turner</strong>
-                <small class="text-muted d-block text-truncate" style="max-width: 150px;">alex@example.com</small>
-              </div>
-            </a>
-            
-            <!-- Menu Dropdown (dropup karena posisinya di bawah sidebar) -->
-            <ul class="dropdown-menu dropdown-menu-dark text-small shadow w-100" aria-labelledby="dropdownUser1">
-              <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profile</a></li>
-              <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
-              <li>
-                <form id="logoutForm" action="{{ route('logout') }}" method="POST" class="d-inline">
-                  @csrf
-                  <button type="submit" class="dropdown-item text-danger" id="logoutBtn">
-                    <i class="bi bi-box-arrow-right me-2"></i>Logout
-                  </button>
-                </form>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-      <main>
-        <div class="overlay"></div>
-        <section class="content">
-        <h1>Dashboard RestoApp</h1>
-        <p class="lead">
-            Selamat datang, {{ Auth::user()->username }}!
-        </p>
-        
-  
-        </section>
-      </main>
+@section('content')
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h3 class="fw-bold mb-1">Dashboard RestoApp</h3>
+        <p class="text-muted mb-0">Selamat datang kembali, <strong>{{ Auth::user()->username ?? 'Kasir' }}</strong>!</p>
     </div>
-    <footer>
-      <div class="footer-content">
-        <div class="footer-about">
-          <h3>Portofolio</h3>
-          <p>Email: hibbanyama@gmail.com</p>
+    <a href="{{ route('orders.create') }}" class="btn btn-primary">
+        <i class="bi bi-cart-plus me-1"></i>Buka Kasir
+    </a>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0 border-start border-primary border-4 p-3">
+            <h6 class="text-muted text-uppercase mb-2" style="font-size:0.75rem;">Menu Cepat</h6>
+            <a href="{{ route('orders.create') }}" class="btn btn-outline-primary btn-sm">
+                <i class="bi bi-cart-check me-1"></i>Mulai Transaksi Baru
+            </a>
         </div>
-
-        <div class="footer-social">
-          <h4>Follow</h4>
-          <a href="https://www.instagram.com/kagaya.01/">Instagram</a> 
-          <a href="https://www.linkedin.com/in/hibban-ahmad-ibrahim-b05634379/"
-            >LinkedIn</a
-          >
-           <a href="https://x.com/hibbanibrahim09">Twitter</a> 
-          <a href="https://github.com/kagaya-01">GitHub</a>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0 border-start border-success border-4 p-3">
+            <h6 class="text-muted text-uppercase mb-2" style="font-size:0.75rem;">Kelola Menu</h6>
+            <a href="{{ route('menu-items.index') }}" class="btn btn-outline-success btn-sm">
+                <i class="bi bi-card-list me-1"></i>Lihat Daftar Menu
+            </a>
         </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2026 Hibban Ahmad Ibrahim. All Rights Reserved.</p>
-      </div>
-    </footer>
-  </body>
-  <!-- Bootstrap 5 JS Bundle CDN (Wajib untuk interaksi dropdown) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    const sidebarContainer = document.querySelector(".sidebar");
-    const sidebarUl = document.querySelector(".ul-profile-wrapper");
-    const sidebarBtn = document.querySelector(".close-icon");
-    const line = document.querySelector(".line");
-    const overlay = document.querySelector(".overlay");
-
-
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-      // Clear the timeout if it's already running
-      clearTimeout(resizeTimer);
-
-      //timeout to run the code 200ms after resizing stops
-      resizeTimer = setTimeout(() => {
-        console.log("Resized to:", window.innerWidth);
-        if(window.innerWidth > 768){
-          sidebarContainer.style.setProperty('left', '0');
-          sidebarUl.style.setProperty('display', 'flex');
-          sidebarContainer.style.setProperty('background-color', 'var(--black)');
-          overlay.style.setProperty('display', 'none');
-        } else {
-          isOpened = true
-          sidebar()
-          
-        }
-      }, 200);
-    });
-
-    // SIDEBAR
-    let isOpened = false;
-    function sidebar() { 
-
-      if (!isOpened) {
-        isOpened = true;
-        sidebarUl.style.setProperty('display', 'flex');
-        sidebarContainer.style.setProperty('left', '0');
-        sidebarContainer.style.setProperty('background-color', 'var(--black)');
-        sidebarBtn.style.setProperty("--rotate-before", "rotate(45deg)");
-        sidebarBtn.style.setProperty("--rotate-after", "rotate(-45deg)");
-        sidebarBtn.style.setProperty("--line-color", "white");
-        sidebarBtn.style.setProperty("--bottom", "0");
-        sidebarBtn.style.setProperty("--top", "0");
-        line.style.setProperty("opacity", "0");
-        overlay.style.setProperty('background-color', 'rgba(0, 0, 0, 0.328')
-        overlay.style.setProperty('display', 'block');
-      }
-
-      else if(isOpened) { 
-        isOpened = false;
-        sidebarContainer.style.setProperty('left', '-10rem');
-        sidebarContainer.style.setProperty('background-color', 'rgba(0, 0, 0, 0)');
-        sidebarBtn.style.setProperty("--rotate-before", "rotate(0deg)");
-        sidebarBtn.style.setProperty("--rotate-after", "rotate(0deg)");
-        sidebarBtn.style.setProperty("--line-color", "black");
-        sidebarBtn.style.setProperty("--bottom", "1rem");
-        sidebarBtn.style.setProperty("--top", "1rem");
-        line.style.setProperty("opacity", "1");
-        overlay.style.setProperty('background-color', 'rgba(0, 0, 0, 0)');
-        setTimeout(() => {
-          sidebarUl.style.setProperty('display', 'none');
-          overlay.style.setProperty('display', 'none');
-        }, 100);
-        
-      }
-    }
-
-
-    // Logic
-
-
-    document.getElementById('logoutForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      const button = document.getElementById('logoutBtn');
-      button.disabled = true;
-      button.innerText = 'Logging out...';
-
-      this.submit();
-    });
-  </script>
-  <script src="../pages/index/script/script.js"></script>
-  <script
-    src="https://kit.fontawesome.com/f65a8d8213.js"
-    crossorigin="anonymous"
-  ></script>
-</html>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0 border-start border-warning border-4 p-3">
+            <h6 class="text-muted text-uppercase mb-2" style="font-size:0.75rem;">Kelola Kategori</h6>
+            <a href="{{ route('categories.index') }}" class="btn btn-outline-warning btn-sm">
+                <i class="bi bi-tags me-1"></i>Lihat Kategori
+            </a>
+        </div>
+    </div>
+</div>
+@endsection
