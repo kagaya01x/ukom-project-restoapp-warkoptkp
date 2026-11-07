@@ -6,11 +6,9 @@
 <style>
     .menu-card {
         cursor: pointer;
-        transition: transform 0.15s, box-shadow 0.15s;
         border: 2px solid transparent;
     }
     .menu-card:hover {
-        transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(0,0,0,0.12) !important;
         border-color: #0d6efd;
     }
@@ -68,6 +66,7 @@
                  data-category="{{ $item->category_id }}">
                 <div class="card menu-card h-100 shadow-sm"
                      onclick="addToCart({{ $item->menu_item_id }}, '{{ addslashes($item->item_menu_name) }}', {{ $item->item_menu_price }})">
+                    <!-- Image setting -->
                     @if($item->item_menu_img_link)
                         <img src="{{ $item->item_menu_img_link }}"
                              class="card-img-top"
@@ -78,6 +77,8 @@
                             <i class="bi bi-image text-muted" style="font-size:2rem;"></i>
                         </div>
                     @endif
+
+                    <!-- Title dan harga makanan -->
                     <div class="card-body p-2">
                         <p class="card-title mb-1 fw-semibold" style="font-size:0.85rem;line-height:1.3;">
                             {{ $item->item_menu_name }}

@@ -59,21 +59,29 @@
               </li>
             </a>
 
-            <!-- 3. Menu Restoran (Menu & Kategori) -->
-            <a class="text-white text-decoration-none {{ request()->routeIs('menu-items.*', 'categories.*') ? 'active' : '' }}" 
+            <!-- 3. Menu Restoran -->
+            <a class="text-white text-decoration-none {{ request()->routeIs('menu-items.*') ? 'active' : '' }}" 
                href="{{ route('menu-items.index') }}">
-              <li class="{{ request()->routeIs('menu-items.*', 'categories.*') ? 'active' : '' }}">
+              <li class="{{ request()->routeIs('menu-items.*') ? 'active' : '' }}">
                 <i class="bi bi-menu-button-wide me-2"></i>Menu Restoran
               </li>
             </a>
 
-            <!-- 4. Rekapitulasi Penghasilan -->
+            <!-- 4. List Kategori (Menu & Kategori) -->
+            <a class="text-white text-decoration-none {{ request()->routeIs('categories.*') ? 'active' : '' }}" 
+               href="{{ route('categories.index') }}">
+              <li class="{{ request()->routeIs('categories.*') ? 'active' : '' }}">
+                <i class="bi bi-tags me-2"></i>List Kategori
+              </li>
+            </a>
+
+            {{-- <!-- 5. Rekapitulasi Penghasilan -->
             <a class="text-white text-decoration-none {{ request()->routeIs('dashboard') && request()->has('start_date') ? 'active' : '' }}" 
                href="{{ route('dashboard') }}#rekapitulasi">
               <li class="{{ request()->routeIs('dashboard') && request()->has('start_date') ? 'active' : '' }}">
                 <i class="bi bi-graph-up-arrow me-2"></i>Rekapitulasi
               </li>
-            </a>
+            </a> --}}
           </ul>
           
           <!-- BAGIAN PROFIL & DROPDOWN (Menggunakan Dropup Bootstrap) -->
@@ -95,20 +103,9 @@
             <!-- Menu Dropdown (dropup karena posisinya di bawah sidebar) -->
             <ul class="dropdown-menu dropdown-menu-dark text-small shadow w-100" aria-labelledby="dropdownUser1">
               <li>
-                <span class="dropdown-item-text text-muted small">
+                <span class="dropdown-item-text  small text-white">
                   User: <strong>{{ Auth::user()->username ?? 'Kasir' }}</strong>
                 </span>
-              </li>
-              <li><hr class="dropdown-divider"></li>
-              <li>
-                <a class="dropdown-item" href="{{ route('categories.index') }}">
-                  <i class="bi bi-tags me-2"></i>Kelola Kategori
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="{{ route('menu-items.index') }}">
-                  <i class="bi bi-cup-hot me-2"></i>Kelola Menu
-                </a>
               </li>
               <li><hr class="dropdown-divider"></li>
               <li>
@@ -130,7 +127,7 @@
         <div class="overlay" onclick="sidebar()"></div>
 
         <!-- Container Konten Dinamis -->
-        <div class="w-100 p-3 p-md-4 flex-grow-1">
+        <div class="w-100 p-3 p-md-4 grow">
           {{-- Notifikasi Flash Session --}}
           @if(session('success'))
             <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
@@ -238,10 +235,7 @@
       if (logoutForm) {
         logoutForm.addEventListener('submit', function() {
           const button = document.getElementById('logoutBtn');
-          if (button) {
-            button.disabled = true;
-            button.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Logging out...';
-          }
+
         });
       }
     </script>

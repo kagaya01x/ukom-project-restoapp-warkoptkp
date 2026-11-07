@@ -44,7 +44,7 @@
                        class="form-control @error('item_menu_name') is-invalid @enderror"
                        id="item_menu_name" name="item_menu_name"
                        value="{{ old('item_menu_name') }}"
-                       maxlength="200" placeholder="Contoh: Nasi Goreng Spesial">
+                       maxlength="200" >
                 @error('item_menu_name')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
