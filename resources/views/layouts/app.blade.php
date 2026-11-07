@@ -90,7 +90,9 @@
               </div>
               <div class="overflow-hidden">
                 <strong class="d-block text-truncate" style="max-width: 140px;">
-                  {{ Auth::user()->username ?? 'Kasir' }}
+                  @if ($employee)
+                    {{ $employee->name }}
+                  @endif
                 </strong>
                 <small class="text-muted d-block text-truncate" style="max-width: 140px;">
                   Staff Resto
@@ -102,7 +104,11 @@
             <ul class="dropdown-menu dropdown-menu-dark text-small shadow w-100" aria-labelledby="dropdownUser1">
               <li>
                 <span class="dropdown-item-text  small text-white">
-                  User: <strong>{{ Auth::user()->username ?? 'Kasir' }}</strong>
+                  @if ($employee)
+                    Username: <strong>{{ $employee->work_id}}</strong>
+                    <br>
+                    Jabatan: <strong>{{ $employee->position }}</strong>
+                  @endif
                 </span>
               </li>
               <li><hr class="dropdown-divider"></li>

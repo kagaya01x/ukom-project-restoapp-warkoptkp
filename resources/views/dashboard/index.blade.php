@@ -7,7 +7,10 @@
     <div>
         <h4 class="fw-bold mb-0">Dashboard</h4>
         <small class="text-muted">
-            Selamat datang, <strong>{{ Auth::user()->username }}</strong>
+            @if ($employee)
+                Selamat datang, <strong>{{ $employee->name }}</strong>
+            @endif
+            
             @if(request('start_date') || request('end_date'))
                 — Filter:
                 <strong>{{ request('start_date', $startDate) }}</strong>
