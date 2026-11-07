@@ -163,7 +163,7 @@
                     </div>
 
                     <!-- Tombol Checkout -->
-                    <button class="btn btn-success w-100 btn-lg" onclick="checkout()">
+                    <button class="btn btn-success w-100 btn-lg" id="btn-checkout" onclick="checkout()">
                         <i class="bi bi-check-circle me-2"></i>Buat Pesanan &amp; Bayar
                     </button>
                 </div>
@@ -274,11 +274,16 @@ function renderCart() {
 }
 
 function checkout() {
+
     const keys = Object.keys(cart);
     if (keys.length === 0) {
         alert('Keranjang masih kosong!');
         return;
     }
+
+    const btn = document.querySelector('#btn-checkout');
+    btn.disabled = true;
+    btn.innerHTML = 'Memproses...';
 
     // Ambil metode pembayaran yang dipilih
     const paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
