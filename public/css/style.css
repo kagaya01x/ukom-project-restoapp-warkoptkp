@@ -17,7 +17,7 @@
     --highlight-color: #FFF9AF;
 }
 
-@media only screen and (min-width: 769px) {
+@media only screen and (min-width: 980px) {
 
   .header-main-wrapper{
     grid-template-columns: auto 1fr;
@@ -38,7 +38,7 @@
 
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 980px) {
 
   main {
     margin-top: 4.5rem;
@@ -51,12 +51,13 @@
 
   .sidebar{
     position: fixed;
-    left: -10rem;
+    left: -15rem;
   }
 
   /* Hanya tampilkan tombol hamburger, BUKAN tombol logout */
   .sidebar .sidebar-btn {
     display: flex;
+    left: 5rem;
   }
 
   .sidebar #ul-sidebar {
@@ -182,6 +183,7 @@ header{
     background-color: transparent;
     width: 100%;
     justify-content: center;
+    position: relative;
     height: 2rem;
     outline: none;
     border: 0;
@@ -264,9 +266,14 @@ section{
   /* background-color: red; */
 }
 
-section h1{
-  /* background-color: blue; */
+@media only screen and (max-width: 420px) {
+  .table-wrapper{
+    max-width: 380px;
+    overflow-x: auto;
+  }
 }
+
+
 
 .sidebar .dropdown {
   position: relative;

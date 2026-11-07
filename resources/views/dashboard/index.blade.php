@@ -18,9 +18,6 @@
             @endif
         </small>
     </div>
-    <a href="{{ route('orders.create') }}" class="btn btn-primary">
-        <i class="bi bi-cart-plus me-1"></i>Buka Kasir
-    </a>
 </div>
 
 {{-- Filter Tanggal --}}
@@ -109,7 +106,7 @@
 </div>
 
 {{-- Tabel Rekapitulasi Transaksi --}}
-<div class="card shadow-sm" id="rekapitulasi">
+<div class="card shadow-sm table-wrapper" id="rekapitulasi" >
     <div class="card-header">
         <h6 class="mb-0 fw-bold"><i class="bi bi-table me-2"></i>Rekapitulasi Transaksi</h6>
     </div>

@@ -176,7 +176,8 @@
     <script>
       const sidebarContainer = document.querySelector(".sidebar");
       const sidebarUl = document.querySelector(".ul-profile-wrapper");
-      const sidebarBtn = document.querySelector(".close-icon");
+      const sidebarBtn = document.querySelector(".sidebar-btn");
+      const sidebarHam = document.querySelector(".close-icon");
       const line = document.querySelector(".line");
       const overlay = document.querySelector(".overlay");
 
@@ -184,7 +185,7 @@
       window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
-          if (window.innerWidth > 768) {
+          if (window.innerWidth > 980) {
             sidebarContainer.style.setProperty('left', '0');
             sidebarUl.style.setProperty('display', 'flex');
             sidebarContainer.style.setProperty('background-color', 'var(--black)');
@@ -196,6 +197,8 @@
         }, 200);
       });
 
+      
+
       // Toggle Sidebar
       let isOpened = false;
       function sidebar() { 
@@ -204,23 +207,25 @@
           sidebarUl.style.setProperty('display', 'flex');
           sidebarContainer.style.setProperty('left', '0');
           sidebarContainer.style.setProperty('background-color', 'var(--black)');
-          sidebarBtn.style.setProperty("--rotate-before", "rotate(45deg)");
-          sidebarBtn.style.setProperty("--rotate-after", "rotate(-45deg)");
-          sidebarBtn.style.setProperty("--line-color", "white");
-          sidebarBtn.style.setProperty("--bottom", "0");
-          sidebarBtn.style.setProperty("--top", "0");
+          sidebarBtn.style.setProperty("left", "0");
+          sidebarHam.style.setProperty("--rotate-before", "rotate(45deg)");
+          sidebarHam.style.setProperty("--rotate-after", "rotate(-45deg)");
+          sidebarHam.style.setProperty("--line-color", "white");
+          sidebarHam.style.setProperty("--bottom", "0");
+          sidebarHam.style.setProperty("--top", "0");
           line.style.setProperty("opacity", "0");
           overlay.style.setProperty('background-color', 'rgba(0, 0, 0, 0.328)');
           overlay.style.setProperty('display', 'block');
         } else { 
           isOpened = false;
-          sidebarContainer.style.setProperty('left', '-10rem');
+          sidebarContainer.style.setProperty('left', '-15rem');
           sidebarContainer.style.setProperty('background-color', 'rgba(0, 0, 0, 0)');
-          sidebarBtn.style.setProperty("--rotate-before", "rotate(0deg)");
-          sidebarBtn.style.setProperty("--rotate-after", "rotate(0deg)");
-          sidebarBtn.style.setProperty("--line-color", "black");
-          sidebarBtn.style.setProperty("--bottom", "1rem");
-          sidebarBtn.style.setProperty("--top", "1rem");
+          sidebarBtn.style.setProperty("left", "5rem");
+          sidebarHam.style.setProperty("--rotate-before", "rotate(0deg)");
+          sidebarHam.style.setProperty("--rotate-after", "rotate(0deg)");
+          sidebarHam.style.setProperty("--line-color", "black");
+          sidebarHam.style.setProperty("--bottom", "1rem");
+          sidebarHam.style.setProperty("--top", "1rem");
           line.style.setProperty("opacity", "1");
           overlay.style.setProperty('background-color', 'rgba(0, 0, 0, 0)');
           setTimeout(() => {
