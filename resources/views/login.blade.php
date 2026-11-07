@@ -6,8 +6,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Login - RestoApp</title>
 
-    <!-- Memanggil CSS & JS Bootstrap via Vite -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 <body class="bg-light d-flex align-items-center py-4 bg-body-tertiary" style="min-height: 100vh;">
 
