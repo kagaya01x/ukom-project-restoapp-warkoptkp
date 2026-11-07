@@ -7,7 +7,7 @@
     <div>
         <h4 class="fw-bold mb-0">Dashboard</h4>
         <small class="text-muted">
-            @if ($employee)
+            @if($employee)
                 Selamat datang, <strong>{{ $employee->name }}</strong>
             @endif
             
