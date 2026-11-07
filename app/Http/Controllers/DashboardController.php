@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\OrderModel;
 use App\Models\TransactionModel;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
     public function index(Request $request)
     {
+        // mengambil data user
+        $employee = Auth::user()->employee;
         $request->validate([
             'start_date' => 'nullable|date',
             'end_date'   => 'nullable|date|after_or_equal:start_date',
@@ -47,6 +50,7 @@ class DashboardController extends Controller
             ->withQueryString();
 
         return view('dashboard.index', compact(
+            'employee',
             'totalRevenue',
             'totalTransactions',
             'totalOrders',

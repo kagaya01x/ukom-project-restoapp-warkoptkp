@@ -36,7 +36,7 @@ class EmployeeModel extends Model
             UserModel::class, 
             UserEmployeeModel::class, 
             'employee_id', 
-            'id', 
+            'user_id', 
             'employee_id', 
             'user_id');
     }
