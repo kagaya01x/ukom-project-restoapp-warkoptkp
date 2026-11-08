@@ -64,4 +64,6 @@ Route::middleware('auth')->group(function () {
         ->name('orders.store');
     Route::get('/orders/{id}', [OrderController::class, 'show'])
         ->name('orders.show');
+    Route::put('/orders/{invoice}', [OrderController::class, 'update'])
+        ->name('orders.update');
 });

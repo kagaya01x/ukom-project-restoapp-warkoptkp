@@ -26,6 +26,7 @@
                         <th class="text-end">Grand Total</th>
                         <th>Waktu</th>
                         <th>Status</th>
+                        <th>Ubah Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -60,6 +61,8 @@
                             @if($trx->order)
                                 @if($trx->order->order_status === 'completed')
                                     <span class="badge bg-success">Selesai</span>
+                                @elseif($trx->order->order_status === 'pending')
+                                    <span class="badge bg-warning text-dark">Pending</span>
                                 @elseif($trx->order->order_status === 'cancelled')
                                     <span class="badge bg-danger">Dibatalkan</span>
                                 @else
@@ -67,6 +70,32 @@
                                 @endif
                             @else
                                 <span class="text-muted">-</span>
+                            @endif
+                        </td>
+                        <td> 
+                            @if($trx->order->order_status === 'completed' || $trx->order->order_status === 'cancelled')
+                                <span class="text-muted text-center">-</span>
+                            @else
+                                <form action="{{ route('orders.update', $trx->invoice) }}"
+                                        method="POST" class="d-inline"
+                                        onsubmit="return confirm('Ubah ke Sukses? \'{{ $trx->invoice }}\'?')">
+                                    @csrf
+                                    @method('PUT')
+                                    <input type="hidden" name="status" value="completed">
+                                    <button type="submit" class="btn btn-sm btn-outline-success">
+                                        <i class="bi bi-check-lg"></i>
+                                    </button>
+                                </form>
+                                <form action="{{ route('orders.update', $trx->invoice) }}"
+                                        method="POST" class="d-inline"
+                                        onsubmit="return confirm('Batalkan Pesanan? \'{{ $trx->invoice }}\'?')">
+                                    @csrf
+                                    @method('PUT')
+                                    <input type="hidden" name="status" value="cancelled">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                        <i class="bi bi-x-lg"></i>
+                                    </button>
+                                </form>
                             @endif
                         </td>
                     </tr>
@@ -82,11 +111,11 @@
             </table>
         </div>
     </div>
-    {{-- @if($categories->hasPages())
+    @if($transactions->hasPages())
     <div class="card-footer">
-        {{ $categories->links('pagination::bootstrap-5') }}
+        {{ $transactions->links('pagination::bootstrap-5') }}
     </div>
-    @endif --}}
+    @endif
 </div>
 @endsection
 

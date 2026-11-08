@@ -14,14 +14,13 @@ use Illuminate\Support\Facades\DB;
 class OrderController extends Controller
 {
     public function index(){
-        // Aggregate stats from transactions only (no join to order_items to avoid duplication)
         $query = TransactionModel::query();
 
         $totalRevenue = (clone $query)->sum('grand_total') ?? 0;
         $totalTransactions = (clone $query)->count();
 
         // Orders count from orders table
-        $totalOrders = OrderModel::where('order_status', 'completed')->count();
+        $totalOrders = OrderModel::count();
 
         // Paginated transaction table with eager loads
         $transactions = TransactionModel::with(['user', 'order'])
@@ -75,7 +74,7 @@ class OrderController extends Controller
                 $order = OrderModel::create([
                     'user_id'      => $userId,
                     'datetime'     => now(),
-                    'order_status' => 'completed',
+                    'order_status' => 'pending',
                     'desc'         => null,
                 ]);
 
@@ -127,5 +126,17 @@ class OrderController extends Controller
     {
         $transaction = TransactionModel::with(['order.orderItems', 'user'])->findOrFail($id);
         return view('orders.show', compact('transaction'));
+    }
+
+    public function update(Request $request, $invoice){
+        // Ambil data bedasarkan invoice
+        $tsx = TransactionModel::where('invoice', $invoice)->firstOrFail();
+        $order = $tsx->order;
+        // Ubah status bedasarkan value nama 'status'
+        $order->order_status = $request->input('status');
+        // Save ke database
+        $order->save();
+
+        return redirect()->route('orders.index')->with('success', 'Berhasil mengubah status pesanan.');
     }
 }

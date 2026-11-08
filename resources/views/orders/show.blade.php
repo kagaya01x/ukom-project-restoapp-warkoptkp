@@ -59,8 +59,14 @@
                         <strong>{{ \Carbon\Carbon::parse($transaction->datetime)->format('d/m/Y H:i') }}</strong>
                     </div>
                     <div class="col-6">
-                        <small class="text-muted d-block">Status</small>
-                        <span class="badge bg-success">{{ ucfirst($transaction->order->order_status) }}</span>
+                        <small class="text-muted d-block">Pending</small>
+                        @if ($transaction->order->order_status === "pending")
+                            <span class="badge bg-warning">{{ ucfirst($transaction->order->order_status) }}</span>
+                        @elseif($transaction->order->order_status === "completed")
+                            <span class="badge bg-success">{{ ucfirst($transaction->order->order_status) }}</span>
+                        @else
+                            <span class="badge bg-danger">{{ ucfirst($transaction->order->order_status) }}</span>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -111,6 +117,9 @@
         <div class="d-flex gap-2 justify-content-center">
             <a href="{{ route('orders.create') }}" class="btn btn-primary">
                 <i class="bi bi-plus-circle me-2"></i>Pesanan Baru
+            </a>
+            <a href="{{ route('orders.index') }}" class="btn btn-outline-secondary">
+                <i class="bi bi-bag me-2"></i>List Pesanan
             </a>
             <a href="{{ route('dashboard') }}" class="btn btn-outline-secondary">
                 <i class="bi bi-speedometer2 me-2"></i>Dashboard
