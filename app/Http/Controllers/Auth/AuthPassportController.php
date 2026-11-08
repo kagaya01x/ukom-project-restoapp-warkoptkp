@@ -40,6 +40,7 @@ class AuthPassportController extends Controller
 
         Auth::login($user);
         $request->session()->regenerate();
+        Auth::logoutOtherCurrentDevices($request->password);
         return response()->json([
             'success' => true,
             'message' => 'Login Berhasil',
