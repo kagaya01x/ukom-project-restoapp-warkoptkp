@@ -69,7 +69,7 @@
             <a class="text-white text-decoration-none {{ request()->routeIs('menu-items.*') ? 'active' : '' }}" 
                href="{{ route('menu-items.index') }}">
               <li class="{{ request()->routeIs('menu-items.*') ? 'active' : '' }}">
-                <i class="bi bi-menu-button-wide me-2"></i>Menu Restoran
+                <i class="bi bi-menu-button-wide me-2"></i>Menu
               </li>
             </a>
 
