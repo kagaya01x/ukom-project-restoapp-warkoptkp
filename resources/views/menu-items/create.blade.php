@@ -14,7 +14,7 @@
         <h5 class="mb-0 fw-bold"><i class="bi bi-plus-circle me-2"></i>Tambah Menu Baru</h5>
     </div>
     <div class="card-body">
-        <form action="{{ route('menu-items.store') }}" method="POST">
+        <form action="{{ route('menu-items.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="mb-3">
@@ -80,11 +80,9 @@
 
             <div class="mb-4">
                 <label for="item_menu_img_link" class="form-label fw-semibold">URL Gambar</label>
-                <input type="url"
-                       class="form-control @error('item_menu_img_link') is-invalid @enderror"
-                       id="item_menu_img_link" name="item_menu_img_link"
-                       value="{{ old('item_menu_img_link') }}"
-                       placeholder="https://example.com/gambar.jpg (opsional)">
+                <input type="file" 
+                class="form-control @error('item_menu_img_link') is-invalid @enderror" 
+                name="item_menu_img_link" id="item_menu_img_link" accept="image/*" required>
                 @error('item_menu_img_link')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror

@@ -68,7 +68,7 @@
                      onclick="addToCart({{ $item->menu_item_id }}, '{{ addslashes($item->item_menu_name) }}', {{ $item->item_menu_price }})">
                     <!-- Image setting -->
                     @if($item->item_menu_img_link)
-                        <img src="{{ $item->item_menu_img_link }}"
+                        <img src="{{ asset('storage/' . $item->item_menu_img_link) }}"
                              class="card-img-top"
                              alt="{{ $item->item_menu_name }}"
                              onerror="this.src='https://via.placeholder.com/200x120?text=No+Image'">

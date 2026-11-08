@@ -34,7 +34,7 @@
                         <td class="text-muted">{{ $menuItems->firstItem() + $loop->index }}</td>
                         <td>
                             @if($item->item_menu_img_link)
-                                <img src="{{ $item->item_menu_img_link }}"
+                                <img src="{{ asset('storage/' . $item->item_menu_img_link) }}"
                                      alt="{{ $item->item_menu_name }}"
                                      class="rounded"
                                      style="width:48px;height:48px;object-fit:cover;"

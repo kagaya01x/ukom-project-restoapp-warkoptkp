@@ -102,9 +102,9 @@
                     {{ $employee->name }}
                   @endif
                 </strong>
-                <small class="text-muted d-block text-truncate" style="max-width: 140px;">
-                  Staff Resto
-                </small>
+                {{-- <small class="text-muted d-block text-truncate" style="max-width: 140px;">
+                  Pemilik Usaha
+                </small> --}}
               </div>
             </a>
             

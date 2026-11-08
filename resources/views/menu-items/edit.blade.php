@@ -14,7 +14,7 @@
         <h5 class="mb-0 fw-bold"><i class="bi bi-pencil-square me-2"></i>Edit Menu</h5>
     </div>
     <div class="card-body">
-        <form action="{{ route('menu-items.update', $menuItem->menu_item_id) }}" method="POST">
+        <form action="{{ route('menu-items.update', $menuItem->menu_item_id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -82,17 +82,16 @@
                 <label for="item_menu_img_link" class="form-label fw-semibold">URL Gambar</label>
                 @if($menuItem->item_menu_img_link)
                     <div class="mb-2">
-                        <img src="{{ $menuItem->item_menu_img_link }}"
+                        <img src="{{ asset('storage/' . $menuItem->item_menu_img_link) }}"
                              alt="Preview"
                              class="rounded"
                              style="height:60px;object-fit:cover;"
                              onerror="this.style.display='none'">
                     </div>
                 @endif
-                <input type="url"
-                       class="form-control @error('item_menu_img_link') is-invalid @enderror"
-                       id="item_menu_img_link" name="item_menu_img_link"
-                       value="{{ old('item_menu_img_link', $menuItem->item_menu_img_link) }}">
+                <input type="file" 
+                class="form-control @error('item_menu_img_link') is-invalid @enderror" 
+                name="item_menu_img_link" id="item_menu_img_link" accept="image/*">
                 @error('item_menu_img_link')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
