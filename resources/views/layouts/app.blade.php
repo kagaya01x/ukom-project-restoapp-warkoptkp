@@ -50,14 +50,22 @@
             </a>
 
             <!-- 2. Kasir / Pemesanan -->
-            <a class="text-white text-decoration-none {{ request()->routeIs('orders.*') ? 'active' : '' }}" 
+            <a class="text-white text-decoration-none {{ request()->routeIs('orders.create') ? 'active' : '' }}" 
                href="{{ route('orders.create') }}">
-              <li class="{{ request()->routeIs('orders.*') ? 'active' : '' }}">
+              <li class="{{ request()->routeIs('orders.create') ? 'active' : '' }}">
                 <i class="bi bi-cart-plus me-2"></i>Kasir / Pemesanan
               </li>
             </a>
 
-            <!-- 3. Menu Restoran -->
+            <!-- 3. List Kategori (Menu & Kategori) -->
+            <a class="text-white text-decoration-none {{ request()->routeIs('orders.index') ? 'active' : '' }}" 
+               href="{{ route('orders.index') }}">
+              <li class="{{ request()->routeIs('orders.index') ? 'active' : '' }}">
+                <i class="bi bi-bag me-2"></i>List Pesanan
+              </li>
+            </a>
+
+            <!-- 4. Menu Restoran -->
             <a class="text-white text-decoration-none {{ request()->routeIs('menu-items.*') ? 'active' : '' }}" 
                href="{{ route('menu-items.index') }}">
               <li class="{{ request()->routeIs('menu-items.*') ? 'active' : '' }}">
@@ -65,7 +73,7 @@
               </li>
             </a>
 
-            <!-- 4. List Kategori (Menu & Kategori) -->
+            <!-- 5. List Kategori (Menu & Kategori) -->
             <a class="text-white text-decoration-none {{ request()->routeIs('categories.*') ? 'active' : '' }}" 
                href="{{ route('categories.index') }}">
               <li class="{{ request()->routeIs('categories.*') ? 'active' : '' }}">

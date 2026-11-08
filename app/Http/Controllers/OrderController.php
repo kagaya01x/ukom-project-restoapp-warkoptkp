@@ -13,6 +13,30 @@ use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
+    public function index(){
+        // Aggregate stats from transactions only (no join to order_items to avoid duplication)
+        $query = TransactionModel::query();
+
+        $totalRevenue = (clone $query)->sum('grand_total') ?? 0;
+        $totalTransactions = (clone $query)->count();
+
+        // Orders count from orders table
+        $totalOrders = OrderModel::where('order_status', 'completed')->count();
+
+        // Paginated transaction table with eager loads
+        $transactions = TransactionModel::with(['user', 'order'])
+            ->latest('datetime')
+            ->paginate(15)
+            ->withQueryString();
+
+        return view('orders.index', compact(
+            'totalRevenue',
+            'totalTransactions',
+            'totalOrders',
+            'transactions',
+        ));
+    }
+
     public function create()
     {
         $menuItems  = MenuItemModel::with('category')->get();

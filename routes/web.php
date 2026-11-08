@@ -56,6 +56,8 @@ Route::middleware('auth')->group(function () {
         ->name('menu-items.destroy');
 
     // Kasir & Pesanan
+    Route::get('/orders/list', [OrderController::class, 'index'])
+        ->name('orders.index');
     Route::get('/orders/create', [OrderController::class, 'create'])
         ->name('orders.create');
     Route::post('/orders', [OrderController::class, 'store'])
