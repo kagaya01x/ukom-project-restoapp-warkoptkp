@@ -141,11 +141,11 @@
                         <td>
                             @if($trx->payment_method === 'QRIS')
                                 <span class="badge bg-warning text-dark">
-                                    <i class="bi bi-qr-code me-1"></i>QRIS
+                                    </i>QRIS
                                 </span>
                             @else
                                 <span class="badge bg-success">
-                                    <i class="bi bi-cash me-1"></i>Cash
+                                    </i>Cash
                                 </span>
                             @endif
                         </td>
