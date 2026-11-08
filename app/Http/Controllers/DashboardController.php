@@ -29,7 +29,9 @@ class DashboardController extends Controller
             ->whereBetween('datetime', [
                 $startDate . ' 00:00:00',
                 $endDate . ' 23:59:59',
-            ]);
+            ])->whereHas('order', function ($q) {
+                $q->where('order_status', 'completed');
+            });
 
         $totalRevenue = (clone $query)->sum('grand_total') ?? 0;
         $totalTransactions = (clone $query)->count();
