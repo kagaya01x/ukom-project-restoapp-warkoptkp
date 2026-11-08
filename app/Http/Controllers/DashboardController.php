@@ -18,32 +18,33 @@ class DashboardController extends Controller
             'end_date'   => 'nullable|date|after_or_equal:start_date',
         ]);
 
-        // Determine date range
-        $today     = now()->toDateString();
-        $startDate = $request->filled('start_date') ? $request->start_date : $today;
-        $endDate   = $request->filled('end_date')   ? $request->end_date   : $today;
+        // determine range dari awal-akhir bulan
+        $startOfTheMonth = now()->startOfMonth()->toDateString();
+        $endOfTheMonth = now()->endOfMonth()->toDateString();
+        $startDate = $request->filled('start_date') ? $request->start_date : $startOfTheMonth;
+        $endDate = $request->filled('end_date') ? $request->end_date : $endOfTheMonth;
 
         // Aggregate stats from transactions only (no join to order_items to avoid duplication)
         $query = TransactionModel::query()
             ->whereBetween('datetime', [
                 $startDate . ' 00:00:00',
-                $endDate   . ' 23:59:59',
+                $endDate . ' 23:59:59',
             ]);
 
-        $totalRevenue      = (clone $query)->sum('grand_total') ?? 0;
+        $totalRevenue = (clone $query)->sum('grand_total') ?? 0;
         $totalTransactions = (clone $query)->count();
 
         // Orders count from orders table
         $totalOrders = OrderModel::whereBetween('datetime', [
             $startDate . ' 00:00:00',
-            $endDate   . ' 23:59:59',
+            $endDate . ' 23:59:59',
         ])->where('order_status', 'completed')->count();
 
         // Paginated transaction table with eager loads
         $transactions = TransactionModel::with(['user', 'order'])
             ->whereBetween('datetime', [
                 $startDate . ' 00:00:00',
-                $endDate   . ' 23:59:59',
+                $endDate . ' 23:59:59',
             ])
             ->latest('datetime')
             ->paginate(15)
