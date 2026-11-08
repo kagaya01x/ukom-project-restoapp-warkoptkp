@@ -17,7 +17,7 @@ Route::middleware('guest')->group(function () {
         ->name('login.process');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth.session')->group(function () {
 
     // Logout
     Route::post('/logout', [AuthPassportController::class, 'logout'])

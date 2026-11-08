@@ -36,21 +36,26 @@ class AuthPassportController extends Controller
                 'message' => 'Username atau password tidak sesuai.',
             ], 401);
         }
-        //user berhasil login lalu buat token akses
 
-        Auth::login($user);
-        $request->session()->regenerate();
-        Auth::logoutOtherCurrentDevices($request->password);
+        if (Auth::attempt($credentials)) {
+            // User berhasil login lalu buat token akses
+            $request->session()->regenerate();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Login Berhasil',
+                'redirect' => route('dashboard'),
+                'data' => [
+                    'id' => $user->user_id,
+                    'username' => $user->username,
+                    'role' => $user->role_id,
+                ]
+            ], 200);
+        }
         return response()->json([
-            'success' => true,
-            'message' => 'Login Berhasil',
-            'redirect' => route('dashboard'),
-            'data' => [
-                'id' => $user->user_id,
-                'username' => $user->username,
-                'role' => $user->role_id,
-            ]
-        ], 200);
+            'success' => false,
+            'message' => 'Username atau password tidak sesuai.',
+        ], 401);
     }
 
     public function logout(Request $request)
