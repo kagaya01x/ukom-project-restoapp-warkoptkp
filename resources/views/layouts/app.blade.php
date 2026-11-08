@@ -26,7 +26,7 @@
   <body>
     <div class="header-main-wrapper">
       <!-- SIDEBAR NAVIGASI -->
-      <nav class="sidebar">
+      <nav class="sidebar bg-dark">
         <div class="sidebar-content">
           <div class="sidebar-title">
             <h2 class="mb-0">WarkopTKP</h2>
@@ -91,8 +91,8 @@
           </ul>
           
           <!-- BAGIAN PROFIL & DROPDOWN (Menggunakan Dropup Bootstrap) -->
-          <div class="dropdown dropup px-2">
-            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle p-2 rounded bg-black bg-opacity-25" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+          <div class="dropdown dropup" style="position: relative; top:23px;" >
+            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle p-3 bg-secondary" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
               <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center me-2 flex-shrink-0" style="width: 36px; height: 36px;">
                 <i class="bi bi-person-fill text-white fs-5"></i>
               </div>
@@ -162,7 +162,7 @@
     </div>
 
     <!-- FOOTER APLIKASI -->
-    <footer>
+    <footer class="bg-dark">
       <div class="footer-content">
         <div class="footer-about">
           <h3>WarkopTKP — RestoApp</h3>

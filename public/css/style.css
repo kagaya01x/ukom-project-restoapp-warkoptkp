@@ -26,7 +26,6 @@
 
   .sidebar {
     position: relative;
-    background-color: black;
   }
 
   /* Hanya sembunyikan tombol hamburger, BUKAN tombol logout */
