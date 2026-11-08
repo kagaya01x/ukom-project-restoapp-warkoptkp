@@ -186,9 +186,12 @@
         {{ $transactions->appends(request()->query())->links('pagination::bootstrap-5') }}
     </div>
     @endif
-
-    <a class="btn btn-sm btn-success" href="{{ route('export.menu') }}">
-       Export Excel
+</div>
+<br>
+{{-- Export Excel --}}
+<div style="width: 100%; text-align: right;" >
+    <a class="btn btn-sm btn-success" href="{{ route('export.menu') }}" >
+        Export Excel
     </a>
 </div>
 @endsection
