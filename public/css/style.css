@@ -284,25 +284,34 @@ section{
 }
 
 footer {
-    z-index: 999;
-    background-color: black;
-    padding: 2rem 1.3rem  2rem 1.3rem;
-    gap: 2rem;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: var(--white);
+  z-index: 999;
+  background-color: black;
+  padding: 2rem 1.3rem  2rem 1.3rem;
+ 
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
 }
 
 .footer-content{
-    gap: 1rem;
-    overflow: hidden;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
+  gap: 1rem;
+  overflow: hidden;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+.footer-about{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 footer a{
     color: var(--white);
 }
