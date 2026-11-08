@@ -166,15 +166,15 @@
       <div class="footer-content">
         <div class="footer-about">
           <h3>WarkopTKP — RestoApp</h3>
-          <p>Sistem Point of Sales & Manajemen Restoran</p>
+          <p>Sistem Point of Sales & Manajemen Warung Makan & Warkop</p>
         </div>
 
-        <div class="footer-social">
+        {{-- <div class="footer-social">
           <h4>Navigasi Cepat</h4>
           <a href="{{ route('dashboard') }}">Dashboard</a> 
           <a href="{{ route('orders.create') }}">Kasir</a>
           <a href="{{ route('menu-items.index') }}">Daftar Menu</a>
-        </div>
+        </div> --}}
       </div>
       <div class="footer-bottom">
         <p>&copy; {{ date('Y') }} RestoApp. All Rights Reserved.</p>
