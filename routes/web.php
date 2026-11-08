@@ -6,6 +6,7 @@ use App\Http\Controllers\MenuCategoryController;
 use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ExportController;
 
 Route::redirect('/', 'login', 301);
 
@@ -26,6 +27,12 @@ Route::middleware('auth.session')->group(function () {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
+        Route::middleware('auth')->group(function () {
+    Route::get('/export/menu', [
+        ExportController::class,
+            'exportTransactions'
+        ])->name('export.menu');
+    });
 
     // Manajemen Kategori
     Route::get('/categories', [MenuCategoryController::class, 'index'])
