@@ -72,7 +72,7 @@ class MenuItemController extends Controller
         if($request->hasFile('item_menu_img_link')){
             // jaga jaga kalo misal ada file gambar yang sama
             if($menuItem->item_menu_img_link && Storage::disk('public')->exists($menuItem->item_menu_img_link)){
-                Storage::disk('public')->deleta($menuItem->item_menu_img_link);
+                Storage::disk('public')->delete($menuItem->item_menu_img_link);
             }
 
             // Simpan file baru jika user upload gambar

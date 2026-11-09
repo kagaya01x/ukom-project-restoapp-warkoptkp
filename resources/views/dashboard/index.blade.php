@@ -129,46 +129,48 @@
                 </thead>
                 <tbody>
                     @forelse($transactions as $trx)
-                    <tr>
-                        <td>
-                            <a href="{{ route('orders.show', $trx->transaction_id) }}"
-                               class="text-decoration-none fw-semibold">
-                                {{ $trx->invoice }}
-                            </a>
-                        </td>
-                        <td><span class="text-muted">#{{ $trx->order_id }}</span></td>
-                        <td>{{ $trx->user->username ?? '-' }}</td>
-                        <td>
-                            @if($trx->payment_method === 'QRIS')
-                                <span class="badge bg-warning text-dark">
-                                    </i>QRIS
-                                </span>
-                            @else
-                                <span class="badge bg-success">
-                                    </i>Cash
-                                </span>
-                            @endif
-                        </td>
-                        <td class="text-end fw-semibold text-nowrap">
-                            Rp {{ number_format($trx->grand_total, 0, ',', '.') }}
-                        </td>
-                        <td class="text-nowrap text-muted" style="font-size:0.85rem;">
-                            {{ \Carbon\Carbon::parse($trx->datetime)->format('d/m/Y H:i') }}
-                        </td>
-                        <td>
-                            @if($trx->order)
-                                @if($trx->order->order_status === 'completed')
-                                    <span class="badge bg-success">Selesai</span>
-                                @elseif($trx->order->order_status === 'cancelled')
-                                    <span class="badge bg-danger">Dibatalkan</span>
+                    @if($trx->order->order_status === "completed")
+                        <tr>
+                            <td>
+                                <a href="{{ route('orders.show', $trx->transaction_id) }}"
+                                class="text-decoration-none fw-semibold">
+                                    {{ $trx->invoice }}
+                                </a>
+                            </td>
+                            <td><span class="text-muted">#{{ $trx->order_id }}</span></td>
+                            <td>{{ $trx->user->username ?? '-' }}</td>
+                            <td>
+                                @if($trx->payment_method === 'QRIS')
+                                    <span class="badge bg-warning text-dark">
+                                        </i>QRIS
+                                    </span>
                                 @else
-                                    <span class="badge bg-secondary">{{ $trx->order->order_status }}</span>
+                                    <span class="badge bg-success">
+                                        </i>Cash
+                                    </span>
                                 @endif
-                            @else
-                                <span class="text-muted">-</span>
-                            @endif
-                        </td>
-                    </tr>
+                            </td>
+                            <td class="text-end fw-semibold text-nowrap">
+                                Rp {{ number_format($trx->grand_total, 0, ',', '.') }}
+                            </td>
+                            <td class="text-nowrap text-muted" style="font-size:0.85rem;">
+                                {{ \Carbon\Carbon::parse($trx->datetime)->format('d/m/Y H:i') }}
+                            </td>
+                            <td>
+                                @if($trx->order)
+                                    @if($trx->order->order_status === 'completed')
+                                        <span class="badge bg-success">Selesai</span>
+                                    @elseif($trx->order->order_status === 'cancelled')
+                                        <span class="badge bg-danger">Dibatalkan</span>
+                                    @else
+                                        <span class="badge bg-secondary">{{ $trx->order->order_status }}</span>
+                                    @endif
+                                @else
+                                    <span class="text-muted">-</span>
+                                @endif
+                            </td>
+                        </tr>
+                    @endif
                     @empty
                     <tr>
                         <td colspan="7" class="text-center py-4 text-muted">

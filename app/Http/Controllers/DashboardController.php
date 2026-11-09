@@ -40,7 +40,7 @@ class DashboardController extends Controller
         $totalOrders = OrderModel::whereBetween('datetime', [
             $startDate . ' 00:00:00',
             $endDate . ' 23:59:59',
-        ])->where('order_status', 'completed')->count();
+        ])->count();
 
         // Paginated transaction table with eager loads
         $transactions = TransactionModel::with(['user', 'order'])
